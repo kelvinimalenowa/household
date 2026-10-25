@@ -1,5 +1,5 @@
-module.exports = function (app, passport, db, ObjectID) {
-
+module.exports = function (app, passport) {
+  
   // normal routes ===============================================================
 
   // show the home page (will also have our login links)
@@ -9,14 +9,7 @@ module.exports = function (app, passport, db, ObjectID) {
 
   // PROFILE SECTION =========================
   app.get('/profile', isLoggedIn, function (req, res) {
-    console.log('here', db.collection('messages').find())
-    db.collection('messages').find().toArray((err, result) => {
-      if (err) return console.log(err)
-      res.render('profile.ejs', {
-        user: req.user,
-        messages: result
-      })
-    })
+    res.render('profile.ejs', { user: req.user });
   });
 
   // LOGOUT ==============================
@@ -29,57 +22,10 @@ module.exports = function (app, passport, db, ObjectID) {
 
   // message board routes ===============================================================
 
-  app.post('/messages', (req, res) => {
-    db.collection('messages').save({ name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown: 0 }, (err, result) => {
-      if (err) return console.log(err)
-      console.log('saved to database')
-      res.redirect('/profile')
-    })
-  })
-
-  app.put('/like', (req, res) => {
-    db.collection('messages')
-      .findOneAndUpdate({
-        _id: new ObjectID(req.body.id)
-      }, {
-        $inc: {
-          thumbUp: 1
-        }
-      }, {
-        sort: { _id: -1 },
-        upsert: true
-      }, (err, result) => {
-        if (err) return res.send(err)
-        res.send(result)
-      })
-  })
-
-  app.put('/dislike', (req, res) => {
-    db.collection('messages')
-      .findOneAndUpdate({
-        _id: new ObjectID(req.body.id)
-      }, {
-        $inc: {
-          thumbUp: -1
-        }
-      }, {
-        sort: { _id: -1 },
-        upsert: true
-      }, (err, result) => {
-        if (err) return res.send(err)
-        res.send(result)
-      })
-  })
-
-  app.delete('/trash', (req, res) => {
-    db.collection('messages')
-      .findOneAndDelete({
-        _id: new ObjectID(req.body.id)
-      }, (err, result) => {
-        if (err) return res.send(500, err)
-        res.send('Message deleted!')
-      })
-  })
+  app.get('/listings', isLoggedIn, async (req, res) => {
+    const listings = await Listing.find({ userId: req.user._id });
+    res.render('listings.ejs', { user: req.user, listings });
+  });
 
   // =============================================================================
   // AUTHENTICATE (FIRST LOGIN) ==================================================

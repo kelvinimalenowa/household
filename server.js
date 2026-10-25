@@ -15,9 +15,11 @@ const morgan = require('morgan');
 const session = require('express-session');
 
 // configuration ===============================================================
-mongoose.connect(process.env.MONGODB_URI, { dbName: 'household' })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error(err));// connect to our database
+mongoose.connect(process.env.MONGODB_URI, {
+  dbName: 'household',
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}) // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -39,6 +41,7 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
+require('./app/routes.js')(app, passport);
 
 // launch ======================================================================
 app.listen(port);
