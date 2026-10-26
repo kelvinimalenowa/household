@@ -8,7 +8,7 @@ Built with Node.js, Express, MongoDB, and EJS, Household integrates the Unsplash
 
 ## 🔗 Live Application
 
-[Explore Household](#) <!-- replace # with your deployed link -->
+[Explore Household](https://household-6tp6.onrender.com/)
 
 ## 📸 Project Preview
 
