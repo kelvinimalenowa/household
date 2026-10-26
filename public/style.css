@@ -1,7 +1,118 @@
-body{
-  padding-top:80px;
-  word-wrap:break-word;
+:root {
+  --hh-teal: #0e7c86;
+  --hh-teal-dark: #0a5c64;
+  --hh-blue: #1f7fa8;
+  --hh-mint: #eaf5f3;
+  --hh-ink: #12343b;
+
+  --bs-primary: #0e7c86;
+  --bs-primary-rgb: 14, 124, 134;
+  --bs-link-color: #0e7c86;
+  --bs-link-color-rgb: 14, 124, 134;
+  --bs-link-hover-color: #0a5c64;
+  --bs-link-hover-color-rgb: 10, 92, 100;
 }
-img{
-  height: 200px;
+
+body {
+  background: var(--hh-mint);
+  color: var(--hh-ink);
 }
+
+/* ---------- gradients on teal surfaces ---------- */
+
+section.bg-primary,
+nav.bg-primary,
+.hero {
+  background-image: linear-gradient(135deg, var(--hh-teal-dark) 0%, var(--hh-teal) 55%, var(--hh-blue) 100%);
+}
+nav.bg-primary { box-shadow: 0 2px 12px rgba(10, 92, 100, .25); }
+
+/* ---------- buttons ---------- */
+
+.btn-primary {
+  --bs-btn-bg: #0e7c86;
+  --bs-btn-border-color: #0e7c86;
+  --bs-btn-hover-bg: #0a5c64;
+  --bs-btn-hover-border-color: #0a5c64;
+  --bs-btn-active-bg: #0a5c64;
+  --bs-btn-active-border-color: #0a5c64;
+  --bs-btn-disabled-bg: #0e7c86;
+  --bs-btn-disabled-border-color: #0e7c86;
+}
+.btn-outline-primary {
+  --bs-btn-color: #0e7c86;
+  --bs-btn-border-color: #0e7c86;
+  --bs-btn-hover-bg: #0e7c86;
+  --bs-btn-hover-border-color: #0e7c86;
+  --bs-btn-active-bg: #0a5c64;
+  --bs-btn-active-border-color: #0a5c64;
+}
+.btn { border-radius: .6rem; font-weight: 500; }
+
+/* ---------- forms ---------- */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--hh-teal);
+  box-shadow: 0 0 0 .25rem rgba(14, 124, 134, .2);
+}
+
+/* ---------- cards ---------- */
+.card { border-radius: 1rem; }
+
+.listing-card {
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.listing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 .75rem 1.5rem rgba(14, 124, 134, .2) !important;
+}
+
+.listing-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #cfe6e3, #bcd9e6);
+}
+.listing-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.listing-photo .badge {
+  position: absolute;
+  top: .75rem;
+  left: .75rem;
+  z-index: 2;
+  padding: .45em .8em;
+  border-radius: 2rem;
+}
+.listing-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  padding: 2.5rem 1rem .85rem;
+  color: #fff;
+  background: linear-gradient(to top, rgba(8, 50, 56, .9), transparent);
+}
+
+/* status badge colors */
+.status-interested { background: #0e7c86; }
+.status-toured     { background: #1f7fa8; }
+.status-applied    { background: #2e9e6b; }
+.status-rejected   { background: #6c7a80; }
+
+/* ---------- landing page ---------- */
+.hero { color: #fff; padding: 6rem 0 5rem; }
+.hero .lead { opacity: .9; }
+.feature-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: .8rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  background: rgba(14, 124, 134, .12);
+  color: var(--hh-teal);
+}
+footer { color: #5d7a80; }
